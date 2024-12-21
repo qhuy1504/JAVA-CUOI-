@@ -1,0 +1,100 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.container{
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+}
+table{
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+th,td {
+border: 1px solid black;
+padding: 5px;
+text-align: center;
+}
+th{
+    background-color: #f2f2f2;
+    font-weight: bold;
+
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color: blue;
+}
+.button-2{
+background-color: green;
+padding: 10px 20px;
+text-align: center;
+font-size: 16px;
+color: white;
+margin-top: 10px;
+
+}
+
+</style>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+		<div class = "container">
+			<h1 >STT 16_21011251_TRẦN QUÓC HUY</h2>
+			<h2 >Danh sách chuyến bay</h2>
+			
+				<form th:action = "@{/flights/add}" method = "get">
+		<button type = "submit" class = "button-2">Thêm mới</button>
+		</form>
+			
+			<table>
+			<thead>
+			<tr>
+				<th>ID</th>
+				<th>Airplane Name</th>
+				<th>Departure Airport</th>
+				<th>Arrival Airport</th>
+				<th>Departure Date</th>
+				<th>Arrival Date</th>
+				<th>Seat Fare</th>
+				<th>Flight Status</th>
+				<th>Chức năng</th>
+			</tr>
+			
+			</thead>
+			<tbody>
+			<tr th:each = "flight : ${flights}">
+			<td th:text = "${flight.id}"></td>
+			<td th:text = "${flight.airplane_name}"></td>
+			<td th:text = "${flight.departure_airport}"></td>
+			<td th:text = "${flight.arrival_airport}"></td>
+			<td th:text = "${flight.departure_date}"></td>
+			<td th:text = "${flight.arrival_date}"></td>
+			<td th:text = "${flight.seat_fare}"></td>
+			
+			<td th:text = "${flight.flight_status ? 'New' : 'Scheduled'}"></td>
+			<td>
+			<a th:href = "@{/flights/edit/{id}(id=${flight.id})}">Sửa</a> | 
+			<a th:if="${flight.flight_status == true}"   th:href = "@{/flights/delete/{id}(id=${flight.id})}" onclick = "return confirm ('Bạn có chắc chắn muốn xóa ?')">Xóa</a>
+			
+			</td>
+			
+			
+			
+			</tr>
+			
+			</tbody>
+			
+			</table>
+		
+		</div>
+		
+
+</body>
+</html>

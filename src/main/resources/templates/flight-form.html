@@ -1,0 +1,131 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.text-succes{
+font-size: 20px;
+color: green;
+font-weight: bold;
+
+}
+.text-error{
+font-size: 20px;
+color: red;
+font-weight: bold;
+
+}
+.text-error2{
+font-size: 16px;
+color: red;
+font-weight: bold;
+
+}
+.container{
+margin: 0 auto;
+padding: 10px;
+align-items: center;
+}
+div{
+margin-bottom: 10px;
+}
+
+</style>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+			<div class = "container">
+			<h1 th:text = "${flight.id != null && flight.id > 0 ? 'Cập nhật chuyến bay' : 'Thêm chuyến bay mới'}"></h1>
+			<form method = "post" th:action = "@{/flights/add}" th:object = "${flight}">
+				<input type = "hidden" th:field = "*{id}"/>
+			
+			<div>
+			
+		
+		
+		  <div th:if="${succes!= null}">
+        <div class="text-succes">
+            <p>THÀNH CÔNG: <span th:text="${succes}"></span></p>
+        </div>
+    </div>
+		
+	  <div th:if="${error != null}">
+        <div class="text-error">
+            <p>Lỗi: <span th:text="${error}"></span></p>
+        </div>
+    </div>
+		
+		
+    <label for="airplane_name">Tên máy bay: </label>
+    <select id="airplane_name" th:field="*{airplane_name}" >
+        <option value="" disabled selected>Chọn loại sản phẩm</option>
+        <option value="Airbus 0001">Airbus 0001</option>
+        <option value="Airbus 0002">Airbus 0002</option>
+        <option value="Boeing 0001">Boeing 0001</option>
+        <option value="Boeing 0002">Boeing 0002</option>
+    </select>
+    <p th:errors="*{airplane_name}" class="text-error2" th:if="${#fields.hasErrors('airplane_name')}"></p>
+</div>
+
+<div>
+		<label for = "departure_airport">Departure airport *: </label>
+		<input type = "text" id = "departure_airport" th:field = "*{departure_airport}" />
+		<p th:errors = "*{departure_airport}" class = "text-error2" th:if = "${#fields.hasErrors('departure_airport')}"></p>
+		
+		</div>
+		
+		<div>
+		<label for = "arrival_airport">Arrival airport *: </label>
+		<input type = "text" id = "arrival_airport" th:field = "*{arrival_airport}" />
+		<p th:errors = "*{arrival_airport}" class = "text-error2" th:if = "${#fields.hasErrors('arrival_airport')}"></p>
+		
+		</div>
+		
+		<div>
+		<label for = "departure_date">Departure date *: </label>
+		<input type = "date" id = "departure_date" th:field = "*{departure_date}" />
+		<p th:errors = "*{departure_date}" class = "text-error2" th:if = "${#fields.hasErrors('departure_date')}"></p>
+		
+		</div>
+		
+		
+			<div>
+		<label for = "arrival_date">Arrival date *: </label>
+		<input type = "date" id = "arrival_date" th:field = "*{arrival_date}" />
+		<p th:errors = "*{arrival_date}" class = "text-error2" th:if = "${#fields.hasErrors('arrival_date')}"></p>
+		
+		</div>
+		
+				<div>
+		<label for = "seat_fare">Seat fare *: </label>
+		<input type = "text" id = "price" th:field = "*{seat_fare}" />
+		<p th:errors = "*{seat_fare}" class = "text-error2" th:if = "${#fields.hasErrors('seat_fare')}"></p>
+		
+		</div>
+		
+		
+			<div>
+    <label for="flight_status">Flight Status *: </label>
+    <select id="flight_status" th:field="*{flight_status}" >
+        <option value="" disabled selected>Chọn tình trạng</option>
+        <option value="1">New</option>
+        <option value="0">Scheduled</option>
+  
+    </select>
+    <p th:errors="*{flight_status}" class="text-error2" th:if="${#fields.hasErrors('flight_status')}"></p>
+</div>
+	
+			<div>
+			<button type = "submit" th:text = "${flight.id != null && flight.id > 0 ? 'Cập nhật' : 'Lưu mới'}"></button>
+			<a th:href = "@{/flights}">
+			<button type = "button">Quay lại</button>
+			
+			</a>
+		</div>
+			
+			</div>
+			</form>
+
+</body>
+</html>
